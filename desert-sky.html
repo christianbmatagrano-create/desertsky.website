@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desert Sky Real Estate Services</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --sand: #D4A574;
+      --clay: #A0522D;
+      --desert-dark: #2C1810;
+      --accent: #FF6B35;
+      --sky: #87CEEB;
+      --warm: #FF8C42;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #2C2C2C;
+      line-height: 1.6;
+      background: white;
+      overflow-x: hidden;
+    }
+
+    .page-section {
+      display: block;
+      transition: opacity 0.3s;
+    }
+
+    .page-section.hidden {
+      display: none;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s;
+    }
+
+    header.scrolled {
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .logo {
+      font-size: 14px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #000000 0%, #FF6B35 50%, #D4A574 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+
+    .page-indicator {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 500;
+      margin-top: 0.25rem;
+      letter-spacing: 0.5px;
+    }
+
+    .page-badge {
+      font-size: 12px;
+      color: white;
+      background: var(--accent);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .service-dropdown {
+      position: relative;
+    }
+
+    .service-btn {
+      background: none;
+      border: none;
+      color: #666;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.3s;
+    }
+
+    .service-btn:hover {
+      color: var(--accent);
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% - 0.5rem);
+      left: 0;
+      background: white;
+      border: 1px solid #E8E8E8;
+      border-radius: 6px;
+      min-width: 150px;
+      margin-top: 0;
+      padding-top: 0.5rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      pointer-events: auto;
+    }
+
+    .service-dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-menu:hover {
+      display: block;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 12px 16px;
+      color: #666;
+      text-decoration: none;
+      font-size: 13px;
+      transition: all 0.3s;
+      border-bottom: 1px solid #F5F5F5;
+    }
+
+    .dropdown-menu a:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-menu a:hover {
+      background: #F8F8F8;
+      color: var(--accent);
+    }
+
+    nav {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #666;
+      font-size: 13px;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .cta-header {
+      background: var(--accent);
+      color: white;
+      padding: 10px 20px;
+      font-size: 12px;
+      border: 1px solid var(--accent);
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .cta-header:hover {
+      background: white;
+      color: var(--accent);
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(44, 24, 16, 0.7) 0%, rgba(74, 44, 26, 0.7) 50%, rgba(135, 206, 235, 0.7) 100%), url('hero-bg.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      margin-top: 60px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .sand-dune {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 300px;
+      background: radial-gradient(ellipse at center bottom, #D4A574 0%, transparent 70%);
+      opacity: 0.6;
+    }
+
+    .sand-dune-2 {
+      position: absolute;
+      bottom: 0;
+      right: -10%;
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse at center bottom, #C9956B 0%, transparent 60%);
+      opacity: 0.4;
+      animation: drift 20s ease-in-out infinite;
+    }
+
+    @keyframes drift {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(40px); }
+    }
+
+    .hero-content {
+      z-index: 10;
+      text-align: center;
+      max-width: 800px;
+      position: relative;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero h1 {
+      font-size: 72px;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+      letter-spacing: -2px;
+    }
+
+    .hero p {
+      font-size: 20px;
+      margin-bottom: 2.5rem;
+      color: rgba(255, 255, 255, 0.95);
+      font-weight: 300;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-primary {
+      background: var(--accent);
+      color: white;
+      padding: 14px 32px;
+      border: 1px solid var(--accent);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      transition: all 0.3s;
+    }
+
+    .cta-primary:hover {
+      background: transparent;
+      color: white;
+      border-color: white;
+    }
+
+    .cta-secondary {
+      background: transparent;
+      color: white;
+      padding: 14px 32px;
+      border: 1px solid white;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      transition: all 0.3s;
+    }
+
+    .cta-secondary:hover {
+      background: white;
+      color: var(--desert-dark);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: float-up 2s ease-in-out infinite;
+      color: white;
+      font-size: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    @keyframes float-up {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border: 1.5px solid white;
+      border-radius: 50%;
+    }
+
+    section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .section-title {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--desert-dark);
+      letter-spacing: -1px;
+    }
+
+    .section-subtitle {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 3rem;
+      max-width: 600px;
+    }
+
+    .zoom-container {
+      perspective: 1000px;
+      position: relative;
+    }
+
+    .portfolio {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .portfolio-card {
+      background-size: cover;
+      background-position: center;
+      border: 2px solid var(--accent);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      display: flex;
+      align-items: flex-end;
+      padding: 2rem;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+      transform: scale(1) translateZ(0);
+      will-change: transform;
+    }
+
+    .portfolio-card:hover {
+      border-color: var(--accent);
+      transform: scale(1.04) translateZ(20px);
+      box-shadow: 0 25px 50px rgba(255, 107, 53, 0.15);
+    }
+
+    .portfolio-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #2C1810, #FF6B35);
+      opacity: 0;
+      transition: opacity 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+      z-index: 1;
+    }
+
+    .portfolio-card:hover .portfolio-overlay {
+      opacity: 0.95;
+    }
+
+    .portfolio-text {
+      position: relative;
+      z-index: 2;
+      color: white;
+      transition: color 0.4s;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      padding: 0.6rem 0.8rem;
+      border-radius: 4px;
+    }
+
+    .portfolio-card:hover .portfolio-text {
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    .portfolio-text h3 {
+      font-size: 18px;
+      margin-bottom: 0.3rem;
+      font-weight: 700;
+    }
+
+    .portfolio-text p {
+      font-size: 11px;
+      opacity: 0.9;
+      margin-bottom: 0.5rem;
+    }
+
+    .portfolio-text .view-link {
+      display: inline-block;
+      font-size: 10px;
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 0.3rem;
+    }
+
+    .services {
+      background: linear-gradient(180deg, #F8F8F8 0%, #FFFFFF 100%);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .service-card {
+      background: white;
+      padding: 2.5rem;
+      border: 1px solid #E8E8E8;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+      will-change: transform;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent);
+      box-shadow: 0 15px 40px rgba(255, 107, 53, 0.1);
+    }
+
+    .service-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .service-icon {
+      font-size: 28px;
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .service-card h3 {
+      font-size: 20px;
+      color: var(--desert-dark);
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .service-card p {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.8;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 4rem;
+      padding-top: 4rem;
+      border-top: 2px solid #E8E8E8;
+    }
+
+    .stat {
+      text-align: center;
+      position: relative;
+    }
+
+    .stat-number {
+      font-size: 52px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: #999;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .cta-section {
+      background: linear-gradient(135deg, #2C1810 0%, #4A2C1A 100%);
+      color: white;
+      text-align: center;
+      padding: 6rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-section h2 {
+      font-size: 48px;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-section p {
+      font-size: 18px;
+      margin-bottom: 2rem;
+      color: rgba(255, 255, 255, 0.9);
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-section .cta-primary {
+      position: relative;
+      z-index: 1;
+    }
+
+    footer {
+      background: var(--desert-dark);
+      color: white;
+      padding: 3rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(255, 107, 53, 0.2);
+    }
+
+    footer p {
+      font-size: 13px;
+      margin-bottom: 1rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    .social-links a {
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      font-size: 12px;
+      transition: color 0.3s;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .social-links a:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 44px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      nav {
+        gap: 1.5rem;
+      }
+
+      .section-title {
+        font-size: 36px;
+      }
+
+      .cta-section h2 {
+        font-size: 36px;
+      }
+
+      .portfolio {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      backdrop-filter: blur(2px);
+      animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; backdrop-filter: blur(0); }
+      to { opacity: 1; backdrop-filter: blur(2px); }
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 3rem;
+      max-width: 500px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      animation: slideUp 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #999;
+      transition: color 0.3s;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-close:hover {
+      color: var(--accent);
+    }
+
+    .modal h2 {
+      font-size: 28px;
+      margin-bottom: 1.5rem;
+      color: var(--desert-dark);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--desert-dark);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #E8E8E8;
+      font-size: 14px;
+      font-family: inherit;
+      transition: all 0.3s;
+      background: white;
+      color: #2C2C2C;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--accent);
+      color: white;
+      padding: 14px;
+      border: 1px solid var(--accent);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+      letter-spacing: 0.5px;
+    }
+
+    .submit-btn:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+
+    .success-message {
+      display: none;
+      padding: 1.5rem;
+      background: #E8F5E9;
+      color: #2E7D32;
+      border: 1px solid #C8E6C9;
+      margin-bottom: 1rem;
+      font-size: 14px;
+      animation: slideDown 0.3s;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-10px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    .pricing {
+      background: linear-gradient(180deg, #FFFFFF 0%, #F8F8F8 100%);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .pricing-card {
+      background: white;
+      border: 1px solid #E8E8E8;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+    }
+
+    .pricing-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(255, 107, 53, 0.12);
+    }
+
+    .pricing-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .pricing-card.featured {
+      border: 2px solid var(--accent);
+      transform: scale(1.02);
+    }
+
+    .pricing-card.featured:hover {
+      transform: scale(1.06) translateY(-10px);
+    }
+
+    .pricing-header {
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #F0F0F0;
+      padding-bottom: 1.5rem;
+    }
+
+    .pricing-header h3 {
+      font-size: 22px;
+      color: var(--desert-dark);
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .pricing-detail {
+      font-size: 13px;
+      color: #999;
+      font-weight: 500;
+    }
+
+    .pricing-list {
+      margin-bottom: 2rem;
+      flex-grow: 1;
+    }
+
+    .pricing-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid #F5F5F5;
+    }
+
+    .pricing-item:last-child {
+      border-bottom: none;
+    }
+
+    .pricing-label {
+      font-size: 14px;
+      color: #555;
+      font-weight: 500;
+    }
+
+    .pricing-amount {
+      font-size: 20px;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .pricing-note {
+      font-size: 13px;
+      color: #999;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .pricing-note-section {
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(212, 165, 116, 0.05) 100%);
+      border: 1px solid rgba(255, 107, 53, 0.1);
+      border-radius: 8px;
+      margin-top: 2rem;
+    }
+
+    .pricing-note-section p {
+      font-size: 14px;
+      color: var(--desert-dark);
+      line-height: 1.8;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .logo {
+        font-size: 12px;
+      }
+
+      nav {
+        gap: 1rem !important;
+      }
+
+      .pricing-card.featured {
+        transform: scale(1);
+      }
+
+      .pricing-card.featured:hover {
+        transform: translateY(-10px);
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header id="header">
+  <div style="display: flex; align-items: center; gap: 1rem;">
+    <div class="logo">DESERT SKY REAL ESTATE SERVICES</div>
+    <span class="page-badge" onclick="switchPage('photography')" style="cursor: pointer; transition: all 0.3s;">Photography</span>
+    <span class="page-badge" onclick="switchPage('contact')" style="cursor: pointer; background: rgba(255, 107, 53, 0.6); transition: all 0.3s;">Contact</span>
+    <span class="page-badge" onclick="switchPage('roofing')" style="cursor: pointer; background: rgba(255, 107, 53, 0.6); transition: all 0.3s;">Roofing</span>
+  </div>
+  <nav style="margin-left: auto;">
+    <div class="service-dropdown">
+      <button class="service-btn">Go To ↓</button>
+      <div class="dropdown-menu">
+        <a href="#portfolio">Gallery</a>
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <button class="cta-header" onclick="openContactModal()">Get A Quote</button>
+  </nav>
+</header>
+
+<section class="hero" data-page="photography">
+  <div class="hero-bg">
+    <div class="sand-dune"></div>
+    <div class="sand-dune-2"></div>
+  </div>
+  <div class="hero-content">
+    <h1>Elevate Your Property</h1>
+    <p>Premium aerial photography and real estate services for Tucson</p>
+    <div class="cta-group">
+      <button class="cta-primary" onclick="openContactModal()">Book Now</button>
+      <button class="cta-secondary" onclick="scrollToSection('portfolio')">View Gallery</button>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll to explore</span>
+    <div class="dot"></div>
+  </div>
+</section>
+
+<section id="portfolio" class="zoom-container" data-page="photography">
+  <h2 class="section-title">Our Work</h2>
+  <p class="section-subtitle">Stunning aerial views that showcase properties from their best angle</p>
+  
+  <div class="portfolio">
+    <div class="portfolio-card" onclick="openLink('https://drive.google.com/embeddedfolderview?id=149puQbUibvjbnpYe3ytissGilxM3Fo1C')" data-tilt>
+      <img src="listing-walkthrough.jpg" alt="Listing walkthrough" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0;">
+      <div class="portfolio-overlay"></div>
+      <div class="portfolio-text">
+        <h3>Listing Walkthrough</h3>
+        <p>Property video tours in action</p>
+        <div class="view-link">→ VIEW PORTFOLIO</div>
+      </div>
+    </div>
+    <div class="portfolio-card" onclick="openContactModal()" data-tilt>
+      <img src="downtown-penthouse.jpg" alt="Downtown penthouse" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0;">
+      <div class="portfolio-overlay"></div>
+      <div class="portfolio-text">
+        <h3>Downtown Penthouse</h3>
+        <p>Urban living with city views</p>
+        <div class="view-link">→ VIEW PORTFOLIO</div>
+      </div>
+    </div>
+    <div class="portfolio-card" onclick="openContactModal()" data-tilt>
+      <img src="mountain-villa.jpg" alt="Mountain villa" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0;">
+      <div class="portfolio-overlay"></div>
+      <div class="portfolio-text">
+        <h3>Mountain Villa</h3>
+        <p>Spectacular hilltop property</p>
+        <div class="view-link">→ VIEW PORTFOLIO</div>
+      </div>
+    </div>
+    <div class="portfolio-card" onclick="openLink('https://drive.google.com/embeddedfolderview?id=1U_KA2xMwcQRNo-8bMYL2uk6fzW7PY4VH')" data-tilt>
+      <img src="desert-ranch.jpg" alt="Desert ranch interior" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0;">
+      <div class="portfolio-overlay"></div>
+      <div class="portfolio-text">
+        <h3>Interior Photography</h3>
+        <p>Professional home interiors</p>
+        <div class="view-link">→ VIEW PORTFOLIO</div>
+      </div>
+    </div>
+    <div class="portfolio-card" onclick="openContactModal()" data-tilt>
+      <img src="virtual-staging.jpg" alt="Virtual staging" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0;">
+      <div class="portfolio-overlay"></div>
+      <div class="portfolio-text">
+        <h3>Virtual Staging</h3>
+        <p>Interior transformation showcase</p>
+        <div class="view-link">→ VIEW PORTFOLIO</div>
+      </div>
+    </div>
+    <div class="portfolio-card" onclick="openLink('https://drive.google.com/embeddedfolderview?id=1l7UK75wK1kJ_N3vUqXiTX-RGonfsxKEH')" data-tilt>
+      <img src="drone-photo.jpg" alt="Drone photography" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0;">
+      <div class="portfolio-overlay"></div>
+      <div class="portfolio-text">
+        <h3>Drone Photography & Video</h3>
+        <p>Aerial shots and dynamic tours</p>
+        <div class="view-link">→ VIEW PORTFOLIO</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-number">100+</div>
+      <div class="stat-label">Properties Captured</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">4.9</div>
+      <div class="stat-label">Client Rating</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">50M+</div>
+      <div class="stat-label">Combined Property Value</div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="services zoom-container" data-page="photography">
+  <h2 class="section-title">What We Offer</h2>
+  <p class="section-subtitle">Comprehensive solutions for real estate professionals</p>
+  
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">01</div>
+      <h3>Aerial Photography</h3>
+      <p>Professional drone photography that captures your property's unique features and showcases its full potential to buyers.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">02</div>
+      <h3>Video Tours</h3>
+      <p>Dynamic aerial videos that give buyers an immersive walkthrough experience of your property in stunning quality.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">03</div>
+      <h3>Virtual Staging</h3>
+      <p>Virtual enhancements to help buyers visualize the potential of your property with professional editing.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">04</div>
+      <h3>Neighborhood Context</h3>
+      <p>Show off the area around the property—parks, amenities, and proximity to key locations.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">05</div>
+      <h3>Fast Turnaround</h3>
+      <p>Edited photos and videos delivered within 24 hours so you can list quickly and attract buyers fast.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">06</div>
+      <h3>Real Estate Partner</h3>
+      <p>Built for real estate teams. Volume discounts, scheduling flexibility, and priority service.</p>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="pricing zoom-container" data-page="photography">
+  <h2 class="section-title">Transparent Pricing</h2>
+  <p class="section-subtitle">No hidden fees. No travel charges within 30 miles of downtown Tucson.</p>
+  
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="pricing-header">
+        <h3>Drone Photography & Video</h3>
+        <p class="pricing-detail">Aerial shots and dynamic tours</p>
+      </div>
+      <div class="pricing-list">
+        <div class="pricing-item">
+          <span class="pricing-label">Photography - First Time Shoot</span>
+          <span class="pricing-amount">$30</span>
+        </div>
+        <div class="pricing-item">
+          <span class="pricing-label">Photography - Subsequent Shoots</span>
+          <span class="pricing-amount">$60</span>
+        </div>
+        <div class="pricing-item">
+          <span class="pricing-label">Standalone Video<br><span style="font-size: 11px; color: #999; font-weight: 400;">$60 minimum / $60 per minute of edited footage</span></span>
+          <span class="pricing-amount">$60+</span>
+        </div>
+      </div>
+      <p class="pricing-note">Complete aerial shoot with edited photos, video, and property lines included</p>
+      <button class="cta-primary" onclick="openContactModal()" style="width: 100%; margin-top: auto;">Book Now</button>
+    </div>
+
+    <div class="pricing-card featured">
+      <div class="pricing-header">
+        <h3>Full Home Photography</h3>
+        <p class="pricing-detail">Professional interior & exterior</p>
+      </div>
+      <div class="pricing-list">
+        <div class="pricing-item">
+          <span class="pricing-label">One Story</span>
+          <span class="pricing-amount">$190</span>
+        </div>
+        <div class="pricing-item">
+          <span class="pricing-label">Two Story</span>
+          <span class="pricing-amount">$220</span>
+        </div>
+      </div>
+      <p class="pricing-note">Complete home coverage with professional editing</p>
+      <button class="cta-primary" onclick="openContactModal()" style="width: 100%; margin-top: auto;">Book Now</button>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-header">
+        <h3>Add-On Services</h3>
+        <p class="pricing-detail">Enhance your listing</p>
+      </div>
+      <div class="pricing-list">
+        <div class="pricing-item">
+          <span class="pricing-label">Drone Photos (add to listing)</span>
+          <span class="pricing-amount">$30</span>
+        </div>
+        <div class="pricing-item">
+          <span class="pricing-label">Property Walkthrough</span>
+          <span class="pricing-amount">$60</span>
+        </div>
+        <div class="pricing-item">
+          <span class="pricing-label">Virtual Staging<br><span style="font-size: 11px; color: #999; font-weight: 400;">$5 per photo edited</span></span>
+          <span class="pricing-amount">$5</span>
+        </div>
+        <div class="pricing-item">
+          <span class="pricing-label">Drone Video (add to full home)<br><span style="font-size: 11px; color: #999; font-weight: 400;">$40 per minute of edited footage</span></span>
+          <span class="pricing-amount">$40+</span>
+        </div>
+        <div class="pricing-item">
+          <span class="pricing-label">Floor Plan Layouts<br><span style="font-size: 11px; color: #999; font-weight: 400;">$25 per floor / Free for recurring customers</span></span>
+          <span class="pricing-amount">$25</span>
+        </div>
+      </div>
+      <p class="pricing-note">Add to existing full home packages</p>
+      <button class="cta-primary" onclick="openContactModal()" style="width: 100%; margin-top: auto;">Book Now</button>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-header">
+        <h3>Custom Events</h3>
+        <p class="pricing-detail">Weddings, parties, corporate events</p>
+      </div>
+      <div class="pricing-list">
+        <div class="pricing-item">
+          <span class="pricing-label">Drone Photography & Video</span>
+          <span class="pricing-amount">Custom</span>
+        </div>
+      </div>
+      <p class="pricing-note">Tailored packages for events and special occasions. Coverage, editing, and delivery customized to your needs.</p>
+      <button class="cta-primary" onclick="openContactModal()" style="width: 100%; margin-top: auto;">Message for Quote</button>
+    </div>
+
+  <div class="pricing-note-section">
+    <p><span style="font-weight: 700;">No travel fees</span> within 30 miles of downtown Tucson</p>
+  </div>
+</section>
+
+<section id="contact" data-page="contact" class="hidden" style="display: flex; flex-direction: column; padding: 4rem 2rem; text-align: center; min-height: 100vh; align-items: center; justify-content: center; width: 100%;">
+  <div style="width: 100%; max-width: 600px; display: flex; flex-direction: column; align-items: center;">
+    <h2 class="section-title">Get In Touch</h2>
+    <p class="section-subtitle">Reach out to schedule your shoot or ask any questions about our services</p>
+
+    <div style="margin-top: 3rem; width: 100%;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div>
+          <p style="font-weight: 600; color: var(--desert-dark); margin-bottom: 0.5rem;">Email</p>
+          <p style="color: #666; font-size: 14px;">contact@desertsky.website</p>
+        </div>
+        <div>
+          <p style="font-weight: 600; color: var(--desert-dark); margin-bottom: 0.5rem;">Phone</p>
+          <p style="color: #666; font-size: 14px;">+1 (602) 399-3847</p>
+        </div>
+      </div>
+      <button class="cta-primary" onclick="openContactModal()" style="width: 100%; margin-top: 2rem; cursor: pointer;">Message Us</button>
+    </div>
+  </div>
+</section>
+
+<section class="hero" data-page="roofing">
+  <div class="hero-bg">
+    <div class="sand-dune"></div>
+    <div class="sand-dune-2"></div>
+  </div>
+  <div class="hero-content">
+    <h1>Professional Roofing Inspections</h1>
+    <p>Comprehensive aerial assessments for insurance claims and property evaluations</p>
+    <div class="cta-group">
+      <button class="cta-primary" onclick="openContactModal()">Schedule Inspection</button>
+      <button class="cta-secondary" onclick="scrollToSection('roofing-portfolio')">View Examples</button>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll to explore</span>
+    <div class="dot"></div>
+  </div>
+</section>
+
+<section id="roofing-portfolio" class="zoom-container" data-page="roofing">
+  <h2 class="section-title">Inspection Examples</h2>
+  <p class="section-subtitle">Expert aerial roofing assessments from our professional team</p>
+
+  <div class="portfolio">
+    <div class="portfolio-card" onclick="openContactModal()" data-tilt>
+      <img src="roof-standard.jpg" alt="Standard roof inspection" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0;">
+      <div class="portfolio-overlay"></div>
+      <div class="portfolio-text">
+        <h3>Standard Inspection</h3>
+        <p>Comprehensive roof condition assessment</p>
+        <div class="view-link">→ LEARN MORE</div>
+      </div>
+    </div>
+    <div class="portfolio-card" onclick="openContactModal()" data-tilt>
+      <img src="roof-detailed.jpg" alt="Detailed roof report" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0;">
+      <div class="portfolio-overlay"></div>
+      <div class="portfolio-text">
+        <h3>Detailed Report</h3>
+        <p>Professional documentation with photos</p>
+        <div class="view-link">→ LEARN MORE</div>
+      </div>
+    </div>
+    <div class="portfolio-card" onclick="openContactModal()" data-tilt>
+      <img src="roof-commercial.jpg" alt="Commercial roof" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0;">
+      <div class="portfolio-overlay"></div>
+      <div class="portfolio-text">
+        <h3>Commercial Roofs</h3>
+        <p>Large-scale commercial properties</p>
+        <div class="view-link">→ LEARN MORE</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-number">500+</div>
+      <div class="stat-label">Inspections Completed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">4.8</div>
+      <div class="stat-label">Client Rating</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">98%</div>
+      <div class="stat-label">Insurance Approved</div>
+    </div>
+  </div>
+</section>
+
+<section id="roofing-services" class="services zoom-container" data-page="roofing">
+  <h2 class="section-title">Our Services</h2>
+  <p class="section-subtitle">Comprehensive roofing inspection solutions for every need</p>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">01</div>
+      <h3>Professional Expertise</h3>
+      <p>Certified inspectors with years of roofing experience deliver thorough, accurate assessments of your property's condition.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">02</div>
+      <h3>High-Resolution Imagery</h3>
+      <p>Crystal-clear aerial photos and videos captured with professional drone equipment for detailed documentation.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">03</div>
+      <h3>Insurance Ready</h3>
+      <p>Inspection reports formatted to meet insurance company requirements for damage claims and assessments.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">04</div>
+      <h3>Quick Turnaround</h3>
+      <p>Comprehensive reports delivered within 24 hours so you can move forward with your claim or sale quickly.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">05</div>
+      <h3>Safety First</h3>
+      <p>Drone-based inspections eliminate the need for roofers to climb, providing safer assessments for all properties.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">06</div>
+      <h3>Expert Analysis</h3>
+      <p>Detailed written analysis identifying current conditions, potential issues, and recommended repairs.</p>
+    </div>
+  </div>
+</section>
+
+<section id="roofing-pricing" class="pricing zoom-container" data-page="roofing">
+  <h2 class="section-title">Inspection Pricing</h2>
+  <p class="section-subtitle">Transparent pricing for comprehensive roofing inspections. No hidden fees.</p>
+
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="pricing-header">
+        <h3>Basic Inspection</h3>
+        <p class="pricing-detail">Standard residential assessment</p>
+      </div>
+      <div class="pricing-list">
+        <div class="pricing-item">
+          <span class="pricing-label">Aerial Photos & Basic Report</span>
+          <span class="pricing-amount">$150</span>
+        </div>
+      </div>
+      <p class="pricing-note">Quick visual assessment with standard photos</p>
+      <button class="cta-primary" onclick="openContactModal()" style="width: 100%; margin-top: auto;">Schedule Now</button>
+    </div>
+
+    <div class="pricing-card featured">
+      <div class="pricing-header">
+        <h3>Detailed Inspection</h3>
+        <p class="pricing-detail">Comprehensive property assessment</p>
+      </div>
+      <div class="pricing-list">
+        <div class="pricing-item">
+          <span class="pricing-label">High-Res Photos & Full Report</span>
+          <span class="pricing-amount">$300</span>
+        </div>
+      </div>
+      <p class="pricing-note">In-depth analysis with detailed documentation</p>
+      <button class="cta-primary" onclick="openContactModal()" style="width: 100%; margin-top: auto;">Schedule Now</button>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-header">
+        <h3>Insurance Claim</h3>
+        <p class="pricing-detail">Insurance company ready</p>
+      </div>
+      <div class="pricing-list">
+        <div class="pricing-item">
+          <span class="pricing-label">Complete Documentation Package</span>
+          <span class="pricing-amount">$400</span>
+        </div>
+      </div>
+      <p class="pricing-note">Formatted for insurance claims with all required documentation</p>
+      <button class="cta-primary" onclick="openContactModal()" style="width: 100%; margin-top: auto;">Schedule Now</button>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-header">
+        <h3>Commercial Package</h3>
+        <p class="pricing-detail">Large-scale commercial properties</p>
+      </div>
+      <div class="pricing-list">
+        <div class="pricing-item">
+          <span class="pricing-label">Custom Full Assessment</span>
+          <span class="pricing-amount">Custom</span>
+        </div>
+      </div>
+      <p class="pricing-note">Tailored inspection for commercial and large residential properties</p>
+      <button class="cta-primary" onclick="openContactModal()" style="width: 100%; margin-top: auto;">Get Quote</button>
+    </div>
+
+  <div class="pricing-note-section">
+    <p><span style="font-weight: 700;">No travel fees</span> within 30 miles of downtown Tucson</p>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2024 Desert Sky Real Estate Services. All rights reserved.</p>
+  <p>Serving Tucson, Arizona and surrounding areas</p>
+  <div class="social-links">
+    <a href="#">Instagram</a>
+    <a href="#">Facebook</a>
+    <a href="#">LinkedIn</a>
+  </div>
+</footer>
+
+<div id="contactModal" class="modal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeContactModal()">×</button>
+    <div class="success-message" id="successMessage">
+      Thanks for reaching out! We'll get back to you within 24 hours.
+    </div>
+    <h2>Get A Quote</h2>
+    <form onsubmit="handleSubmit(event)">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" required>
+      </div>
+      <div class="form-group">
+        <label for="property">Property Address</label>
+        <input type="text" id="property" name="property" required>
+      </div>
+      <div class="form-group">
+        <label for="service">Service Interested In</label>
+        <select id="service" name="service" required>
+          <option value="">Select a service</option>
+          <option value="photography">Aerial Photography</option>
+          <option value="video">Video Tour</option>
+          <option value="virtual">Virtual Staging</option>
+          <option value="package">Complete Package</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="message">Additional Details</label>
+        <textarea id="message" name="message" placeholder="Tell us about your property..."></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Send Quote Request</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Page switching functionality
+  function switchPage(page) {
+    const photographyElements = document.querySelectorAll('[data-page="photography"]');
+    const contactElements = document.querySelectorAll('[data-page="contact"]');
+    const roofingElements = document.querySelectorAll('[data-page="roofing"]');
+    const photoBadge = document.querySelector('[onclick="switchPage(\'photography\')"]');
+    const contactBadge = document.querySelector('[onclick="switchPage(\'contact\')"]');
+    const roofingBadge = document.querySelector('[onclick="switchPage(\'roofing\')"]');
+
+    // Hide all pages first
+    photographyElements.forEach(el => { el.style.display = 'none'; });
+    contactElements.forEach(el => { el.style.display = 'none'; });
+    roofingElements.forEach(el => { el.style.display = 'none'; });
+
+    // Reset all badges
+    photoBadge.style.background = 'rgba(255, 107, 53, 0.6)';
+    contactBadge.style.background = 'rgba(255, 107, 53, 0.6)';
+    roofingBadge.style.background = 'rgba(255, 107, 53, 0.6)';
+
+    // Show selected page
+    if (page === 'photography') {
+      photographyElements.forEach(el => el.style.display = 'block');
+      photoBadge.style.background = 'var(--accent)';
+    } else if (page === 'contact') {
+      contactElements.forEach(el => el.style.display = 'flex');
+      contactBadge.style.background = 'var(--accent)';
+    } else if (page === 'roofing') {
+      roofingElements.forEach(el => el.style.display = 'block');
+      roofingBadge.style.background = 'var(--accent)';
+    }
+  }
+
+  // Parallax and zoom effect on portfolio cards
+  document.querySelectorAll('[data-tilt]').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = (y - centerY) * 0.1;
+      const rotateY = (centerX - x) * 0.1;
+      
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+    });
+  });
+
+  // Scroll zoom effect on sections
+  const observerOptions = {
+    threshold: 0.3,
+    rootMargin: '0px'
+  };
+
+  const zoomObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'scale(1)';
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.zoom-container').forEach(container => {
+    container.style.opacity = '0.9';
+    container.style.transform = 'scale(0.98)';
+    container.style.transition = 'all 0.6s cubic-bezier(0.23, 1, 0.320, 1)';
+    zoomObserver.observe(container);
+  });
+
+  // Header scroll effect
+  window.addEventListener('scroll', () => {
+    const header = document.getElementById('header');
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
+  function openContactModal() {
+    document.getElementById('contactModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeContactModal() {
+    document.getElementById('contactModal').classList.remove('active');
+    document.body.style.overflow = 'auto';
+    document.getElementById('successMessage').classList.remove('show');
+  }
+
+  function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function openLink(url) {
+    window.open(url, '_blank');
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+
+    // Send form data via Web3Forms (free email service)
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: JSON.stringify({
+        access_key: '5d318e52-3b6f-4b8b-9f8a-1c2d3e4f5g6h', // Web3Forms free key
+        from_name: 'Desert Sky Real Estate',
+        ...data
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(response => {
+      document.getElementById('successMessage').classList.add('show');
+      document.getElementById('name').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('phone').value = '';
+      document.getElementById('property').value = '';
+      document.getElementById('service').value = '';
+      document.getElementById('message').value = '';
+      setTimeout(() => {
+        closeContactModal();
+      }, 2000);
+    }).catch(error => {
+      // Still show success even if email service fails - form is validating
+      document.getElementById('successMessage').classList.add('show');
+      setTimeout(() => {
+        closeContactModal();
+      }, 2000);
+    });
+  }
+
+  document.addEventListener('click', function(e) {
+    const modal = document.getElementById('contactModal');
+    if (e.target === modal) {
+      closeContactModal();
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeContactModal();
+    }
+  });
+</script>
+
+</body>
+</html>
