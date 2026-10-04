@@ -30,7 +30,6 @@
       line-height: 1.6;
       background: white;
       overflow-x: hidden;
-      margin: 0;
     }
 
     .page-section {
@@ -199,13 +198,10 @@
       background-position: center;
       background-attachment: fixed;
       color: white;
-      padding: 0;
-      position: fixed;
-      left: 0;
-      right: 0;
-      top: 60px;
+      padding: 2rem;
+      position: relative;
       overflow: hidden;
-      width: 100%;
+      margin-top: 60px;
     }
 
     .hero-bg {
@@ -247,7 +243,6 @@
       position: relative;
       margin: 0 auto;
       width: 100%;
-      padding: 0 2rem;
     }
 
     .hero h1 {
@@ -270,7 +265,6 @@
       gap: 1rem;
       justify-content: center;
       flex-wrap: wrap;
-      margin-bottom: 0.5rem;
     }
 
     .cta-primary {
@@ -972,7 +966,7 @@
 <section id="portfolio" class="zoom-container" data-page="photography">
   <h2 class="section-title">Our Work</h2>
   <p class="section-subtitle">Stunning aerial views that showcase properties from their best angle</p>
-
+  
   <div class="portfolio">
     <div class="portfolio-card" onclick="openLink('https://drive.google.com/embeddedfolderview?id=149puQbUibvjbnpYe3ytissGilxM3Fo1C')" data-tilt>
       <img src="listing-walkthrough.jpg" alt="Listing walkthrough" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0;">
@@ -1049,7 +1043,7 @@
 <section id="services" class="services zoom-container" data-page="photography">
   <h2 class="section-title">What We Offer</h2>
   <p class="section-subtitle">Comprehensive solutions for real estate professionals</p>
-
+  
   <div class="services-grid">
     <div class="service-card">
       <div class="service-icon">01</div>
@@ -1087,7 +1081,7 @@
 <section id="pricing" class="pricing zoom-container" data-page="photography">
   <h2 class="section-title">Transparent Pricing</h2>
   <p class="section-subtitle">No hidden fees. No travel charges within 30 miles of downtown Tucson.</p>
-
+  
   <div class="pricing-grid">
     <div class="pricing-card">
       <div class="pricing-header">
@@ -1472,16 +1466,16 @@
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-
+      
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-
+      
       const rotateX = (y - centerY) * 0.1;
       const rotateY = (centerX - x) * 0.1;
-
+      
       card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
     });
-
+    
     card.addEventListener('mouseleave', () => {
       card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
     });
